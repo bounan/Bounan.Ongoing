@@ -2,8 +2,8 @@ name: CI
 
 on:
   workflow_dispatch:
-#  push: # ToFill
-#    branches: [ "master" ]
+  push:
+    branches: [ "master" ]
 
 permissions:
   contents: read
