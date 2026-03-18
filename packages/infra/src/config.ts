@@ -16,7 +16,7 @@ const getValue = (key: keyof Config, prefix: string, exportSuffix: ExportNames):
 
 export const getConfig = (prefix: string): Config => ({
   alertEmail: getValue('alertEmail', prefix, ExportNames.AlertEmail),
-  loanApiFunctionArn: configFile['loanApiFunctionArn'],
+  loanApiFunctionArn: getValue('loanApiFunctionArn', prefix, ExportNames.LoanApiFunctionArn),
   registerVideosFunctionName: getValue('registerVideosFunctionName', prefix, ExportNames.RegisterVideosFunctionName),
   videoRegisteredTopicArn: getValue('videoRegisteredTopicArn', prefix, ExportNames.VideoRegisteredSnsTopicArn),
 });
