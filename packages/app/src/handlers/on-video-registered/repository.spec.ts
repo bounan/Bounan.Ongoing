@@ -1,11 +1,10 @@
-﻿import { PutCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb';
+﻿// eslint-disable-next-line simple-import-sort/imports
+import { putInputMock, updateInputMock } from '../../test/mocks/aws-sdk-lib-dynamodb-mock';
+
+import { PutCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { addAnime, addEpisodes } from './repository';
-
-const { putInputMock, updateInputMock } = await vi.hoisted(
-  () => import('../../test/mocks/aws-sdk-lib-dynamodb-mock')
-    .then(m => m.injectLibDynamoDbMocks()));
 
 const sendMock = vi.hoisted(() => vi.fn());
 const getAnimeKeyMock = vi.hoisted(() => vi.fn());

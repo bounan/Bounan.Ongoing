@@ -1,11 +1,10 @@
+// eslint-disable-next-line simple-import-sort/imports
+import { getInputMock, sendMock } from '../test/mocks/aws-sdk-lib-dynamodb-mock';
+
 import { GetCommand } from '@aws-sdk/lib-dynamodb';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { getAnimeKey, getEpisodes } from './repository';
-
-const { sendMock, getInputMock } = await vi.hoisted(
-  () => import('../test/mocks/aws-sdk-lib-dynamodb-mock')
-    .then(m => m.injectLibDynamoDbMocks()));
 
 vi.mock('@aws-sdk/client-dynamodb', () => {
   class DynamoDBClient {
