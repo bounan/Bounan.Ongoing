@@ -7,8 +7,7 @@
     "packages/app": {
       "entry": [
         "src/handlers/*/handler.ts",
-        "src/**/*.spec.ts",
-        "src/**/*.integration.test.ts"
+        "src/**/*.spec.ts"
       ],
       "ignoreDependencies": [
         "@aws-sdk/client-ssm"
@@ -16,6 +15,9 @@
     },
     "packages/infra": {
       "entry": "src/app.ts"
+    },
+    "packages/integration-tests": {
+      "entry": "**/*.test.ts"
     }
   }
 }

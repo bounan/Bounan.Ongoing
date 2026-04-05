@@ -1,7 +1,7 @@
 import { getAnimeById } from '@lightweight-clients/jikan-api-lightweight-client';
 import { afterEach, describe, expect, test } from 'vitest'
 
-import { useRateLimit } from './rate-limit';
+import { useRateLimit } from '../../app/src/shared/helpers/rate-limit';
 
 describe('useRateLimit', () => {
   const timestamps: number[] = [];
