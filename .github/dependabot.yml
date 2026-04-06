@@ -1,0 +1,22 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directories:
+      - "/"
+      - "packages/*"
+    schedule:
+      interval: weekly
+      day: saturday
+      time: "09:00"
+    open-pull-requests-limit: 1
+    versioning-strategy: increase-if-necessary
+    rebase-strategy: auto
+    labels:
+      - dependencies
+    commit-message:
+      prefix: deps
+      include: scope
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"

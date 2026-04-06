@@ -9,40 +9,17 @@ permissions:
   contents: read
 
 jobs:
-  code-quality:
-    name: Code Quality Checks
-    runs-on: ubuntu-latest
-    timeout-minutes: 2
-    services:
-      dynamodb-local:
-        image: amazon/dynamodb-local:latest
-        ports:
-          - 8001:8000
-
-    steps:
-      - uses: actions/checkout@v6.0.2
-        with:
-          submodules: 'true'
-
-      - uses: pnpm/action-setup@v4
-
-      - uses: actions/setup-node@v6.3.0
-        with:
-          node-version: 22
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Perform prerelease checks
-        run: pnpm run prerelease
+  prerelease-checks:
+    name: Prerelease Checks
+    uses: ./.github/workflows/shared-prerelease-checks.yml
+    secrets: inherit
 
   deploy:
     name: Deploy
     environment: production
     runs-on: ubuntu-latest
     timeout-minutes: 2
-    needs: code-quality
+    needs: prerelease-checks
 
     permissions:
       id-token: write
