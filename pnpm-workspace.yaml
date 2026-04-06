@@ -2,6 +2,8 @@ packages:
   - packages/*
   - third-party/common/ts
 
+blockExoticSubdeps: true
+
 catalog:
   '@aws-sdk/client-dynamodb': 3.1024.0
   '@aws-sdk/client-lambda': 3.1024.0
@@ -29,9 +31,15 @@ catalog:
   typescript-eslint: 8.58.0
   vitest: 4.1.2
 
+minimumReleaseAge: 1400 # 1 day
+
 nodeLinker: hoisted
 
 onlyBuiltDependencies:
   - aws-sdk
   - esbuild
   - msw
+
+trustPolicy: no-downgrade
+trustPolicyExclude:
+  - "semver@5.7.2"
