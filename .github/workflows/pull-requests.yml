@@ -1,0 +1,34 @@
+name: Pull Requests
+
+on:
+  pull_request:
+    branches: [ "master" ]
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+permissions:
+  contents: read
+
+jobs:
+  prerelease-checks:
+    name: Prerelease Checks
+    uses: ./.github/workflows/shared-prerelease-checks.yml
+    secrets: inherit
+
+  automerge:
+    needs: prerelease-checks
+    if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - id: automerge
+        name: automerge
+        uses: "pascalgn/automerge-action@v0.16.4"
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          MERGE_METHOD: "squash"
+          MERGE_LABELS: "dependencies"
