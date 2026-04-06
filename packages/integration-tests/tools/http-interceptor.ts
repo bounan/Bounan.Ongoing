@@ -1,5 +1,4 @@
 import { bypass, http, HttpResponse } from 'msw';
-import type { SetupServerApi } from 'msw/node';
 import { setupServer } from 'msw/node';
 
 type RequestsRegistry<Request> = {
@@ -15,7 +14,7 @@ export class HttpInterceptor implements Disposable {
     }),
   ];
 
-  private readonly _server: SetupServerApi;
+  private readonly _server: ReturnType<typeof setupServer>;
 
   private constructor() {
     this._server = setupServer(...HttpInterceptor.DEFAULT_HANDLERS);
