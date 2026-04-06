@@ -16,6 +16,9 @@ This document outlines the business rules and system requirements for the anime 
 
 ## on-video-registered
 
+WARNING: This concept does not match the current implementation.
+No validation for completeness or ongoing status is currently implemented.
+
 The endpoint is triggered when a new episode is registered in the system, to check if the anime is ongoing
 and if it should be added to the database.
 
