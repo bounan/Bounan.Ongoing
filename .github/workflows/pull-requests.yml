@@ -1,15 +1,12 @@
-name: Pull Requests
+name: Dependabot auto-merge
 
 on:
   pull_request:
-    branches: [ "master" ]
-    types:
-      - opened
-      - synchronize
-      - reopened
+    types: [ opened, synchronize, reopened, ready_for_review ]
 
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
 
 jobs:
   prerelease-checks:
@@ -17,18 +14,12 @@ jobs:
     uses: ./.github/workflows/shared-prerelease-checks.yml
     secrets: inherit
 
-  automerge:
-    needs: prerelease-checks
-    if: github.actor == 'dependabot[bot]'
+  enable-automerge:
+    if: github.actor == 'dependabot[bot]' && github.event.pull_request.draft == false
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
     steps:
-      - id: automerge
-        name: automerge
-        uses: "pascalgn/automerge-action@v0.16.4"
+      - name: Enable auto-merge (squash)
+        run: |
+          gh pr merge "${{ github.event.pull_request.number }}" --auto --squash
         env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          MERGE_METHOD: "squash"
-          MERGE_LABELS: "dependencies"
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
