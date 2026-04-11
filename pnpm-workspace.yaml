@@ -5,10 +5,10 @@ packages:
 blockExoticSubdeps: true
 
 catalog:
-  '@aws-sdk/client-dynamodb': 3.1024.0
-  '@aws-sdk/client-lambda': 3.1024.0
-  '@aws-sdk/client-ssm': 3.1024.0
-  '@aws-sdk/lib-dynamodb': 3.1024.0
+  '@aws-sdk/client-dynamodb': 3.1026.0
+  '@aws-sdk/client-lambda': 3.1026.0
+  '@aws-sdk/client-ssm': 3.1026.0
+  '@aws-sdk/lib-dynamodb': 3.1026.0
   '@eslint/js': 10.0.1
   '@lightweight-clients/jikan-api-lightweight-client': 4.0.2
   '@types/aws-lambda': 8.10.161
@@ -22,10 +22,10 @@ catalog:
   constructs: 10.6.0
   cross-env: 10.1.0
   eslint: 10.2.0
-  eslint-plugin-simple-import-sort: 12.1.1
+  eslint-plugin-simple-import-sort: 13.0.0
   jiti: 2.6.1
-  knip: 6.3.0
-  msw: 2.13.0
+  knip: 6.3.1
+  msw: 2.13.2
   npm-run-all2: 8.0.4
   typescript: 6.0.2
   typescript-eslint: 8.58.1
