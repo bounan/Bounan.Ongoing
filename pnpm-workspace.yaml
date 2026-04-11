@@ -28,7 +28,7 @@ catalog:
   msw: 2.13.0
   npm-run-all2: 8.0.4
   typescript: 6.0.2
-  typescript-eslint: 8.58.0
+  typescript-eslint: 8.58.1
   vitest: 4.1.2
 
 minimumReleaseAge: 1400 # 1 day
