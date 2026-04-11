@@ -11,5 +11,16 @@
   "prConcurrentLimit": 1,
   "automerge": true,
   "automergeType": "pr",
-  "automergeStrategy": "squash"
+  "automergeStrategy": "squash",
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "pnpm/action-setup"
+      ],
+      "matchManagers": [
+        "github-actions"
+      ],
+      "enabled": false
+    }
+  ]
 }
