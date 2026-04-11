@@ -4,5 +4,8 @@
   "groupName": "all",
   "dependencyDashboard": true,
   "automerge": true,
-  "automergeType": "pr"
+  "automergeType": "pr",
+  "prHourlyLimit": 0,
+  "prConcurrentLimit": 1,
+  "branchConcurrentLimit": 1
 }
