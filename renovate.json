@@ -1,11 +1,13 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
-  "groupName": "all",
+  "extends": [
+    "config:best-practices",
+    "group:all",
+    ":automergePr"
+  ],
   "dependencyDashboard": true,
-  "automerge": true,
-  "automergeType": "pr",
+  "schedule": "* 6 * * 6",
+  "timezone": "UTC",
   "prHourlyLimit": 0,
-  "prConcurrentLimit": 1,
-  "branchConcurrentLimit": 1
+  "prConcurrentLimit": 1
 }
