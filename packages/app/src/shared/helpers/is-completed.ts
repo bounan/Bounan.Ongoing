@@ -5,6 +5,15 @@ import { useRateLimit } from './rate-limit';
 
 const getAnimeByIdRateLimited = useRateLimit(getAnimeById, 1000);
 
+const tryGetAnimeById = async (myAnimeListId: number): Promise<ReturnType<typeof getAnimeById> | null> => {
+  try {
+    return await getAnimeByIdRateLimited(myAnimeListId);
+  } catch (error) {
+    console.error('Failed to get anime info: ', error);
+    return null;
+  }
+}
+
 // Assumption: episodes can be started from any number, but they are always in order.
 // Say, if episode 12 is released, then all existing previous episodes are released as well.
 export const checkIfCompleted = async (
@@ -19,8 +28,12 @@ export const checkIfCompleted = async (
     return true;
   }
 
-  const animeInfo = await getAnimeByIdRateLimited(myAnimeListId);
+  const animeInfo = await tryGetAnimeById(myAnimeListId);
   console.log('Anime info: ', animeInfo);
+  if (!animeInfo) {
+    console.warn('Failed to get anime info.');
+    return false;
+  }
 
   const expectedLastEpisode: number | undefined | null = animeInfo?.data?.episodes;
   console.log('Expected last episode: ', expectedLastEpisode);

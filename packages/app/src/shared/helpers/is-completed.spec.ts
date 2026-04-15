@@ -75,11 +75,13 @@ describe('checkIfCompleted', () => {
     expect(result).toBe(false);
   });
 
-  it('propagates errors from the API call', async () => {
-    getAnimeByIdMock.mockRejectedValueOnce(new Error('api down'));
+  it('treats anime uncompleted when the API call fails and warns', async () => {
+    getAnimeByIdMock.mockRejectedValueOnce(new Error('API error'));
 
     const lastUpdate = new Date('2026-01-24T11:00:00.000Z');
+    const result = await checkIfCompleted(123, lastUpdate, new Set([1, 2, 3]));
 
-    await expect(checkIfCompleted(123, lastUpdate, new Set([1]))).rejects.toThrow('api down');
+    expect(result).toBe(false);
+    expect(console.warn).toHaveBeenCalled();
   });
 });
