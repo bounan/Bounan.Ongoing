@@ -7,7 +7,10 @@ import {
 import { DynamoDBDocumentClient, PutCommand, ScanCommand } from '@aws-sdk/lib-dynamodb';
 
 import { assert } from '../../../third-party/common/ts/runtime/assert';
+import { createLogger } from '../../../third-party/common/ts/runtime/logger';
 import type { AnimeEntity } from '../../app/src/models/anime-entity';
+
+const logger = createLogger('@integration-tests/tools/dynamodb');
 
 export class DynamoDbTableFixture {
   private readonly docClient: DynamoDBDocumentClient;
@@ -75,7 +78,7 @@ export class DynamoDbTableFixture {
       { TableName: this.tableName },
     );
 
-    console.log('Table created', this.tableName);
+    logger.info('Table created', { tableName: this.tableName });
   };
 
   async dropTable() {
@@ -86,6 +89,6 @@ export class DynamoDbTableFixture {
     }
 
     await this.docClient.send(new DeleteTableCommand({ TableName: table }));
-    console.log('Table deleted', table);
+    logger.info('Table deleted', { tableName: table });
   };
 }

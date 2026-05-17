@@ -1,25 +1,28 @@
-﻿import type { SNSEvent } from 'aws-lambda';
+import type { SNSEvent } from 'aws-lambda';
 
+import { createLogger } from '../../../../../third-party/common/ts/runtime/logger';
 import { retry } from '../../../../../third-party/common/ts/runtime/retry';
 import { initConfig } from '../../config/config';
 import { process } from './processor';
 
+const logger = createLogger('@app/handlers/on-video-registered/handler');
+
 const processMessage = async (message: string): Promise<void> => {
-  console.log('Processing message: ', message);
+  logger.info('Processing message', { message });
 
   const updatingRequest = JSON.parse(message);
   await process(updatingRequest);
 
-  console.log('Message processed');
+  logger.info('Message processed');
 };
 
 export const handler = async (event: SNSEvent): Promise<void> => {
-  console.log('Processing event: ', JSON.stringify(event));
+  logger.info('Processing event', { event });
   await initConfig();
   for (const record of event.Records) {
-    console.log('Processing record: ', record?.Sns?.MessageId);
+    logger.info('Processing record', { messageId: record?.Sns?.MessageId });
     await retry(async () => await processMessage(record.Sns.Message), 3, () => true);
   }
 
-  console.info('done');
+  logger.info('Done');
 };

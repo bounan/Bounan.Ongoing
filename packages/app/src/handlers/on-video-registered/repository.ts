@@ -1,8 +1,11 @@
-﻿import { PutCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb';
+import { PutCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb';
 
+import { createLogger } from '../../../../../third-party/common/ts/runtime/logger';
 import { config } from '../../config/config';
 import type { AnimeEntity, AnimeKey } from '../../models/anime-entity';
 import { docClient, getAnimeKey } from '../../shared/repository';
+
+const logger = createLogger('@app/handlers/on-video-registered/repository');
 
 export const addAnime = async (animeKey: AnimeKey, episodes: Set<number>): Promise<void> => {
   const command = new PutCommand({
@@ -19,7 +22,7 @@ export const addAnime = async (animeKey: AnimeKey, episodes: Set<number>): Promi
   });
 
   const result = await docClient.send(command);
-  console.log('Added anime: ' + JSON.stringify(result));
+  logger.info('Added anime', { animeKey, episodes: [...episodes], result });
 }
 
 export const addEpisodes = async (animeKey: AnimeKey, episodes: Set<number>): Promise<void> => {
@@ -36,5 +39,5 @@ export const addEpisodes = async (animeKey: AnimeKey, episodes: Set<number>): Pr
   });
 
   const result = await docClient.send(command);
-  console.log('Added episodes: ' + JSON.stringify(result));
+  logger.info('Added episodes', { animeKey, episodes: [...episodes], result });
 }

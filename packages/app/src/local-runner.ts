@@ -1,14 +1,17 @@
-﻿import type { VideoRegisteredNotification } from '../../../third-party/common/ts/interfaces';
+import type { VideoRegisteredNotification } from '../../../third-party/common/ts/interfaces';
+import { createLogger } from '../../../third-party/common/ts/runtime/logger';
 import { handler as onSchedule } from './handlers/on-schedule/handler';
 import { handler as videoRegistered } from './handlers/on-video-registered/handler';
 
+const logger = createLogger('@app/local-runner');
+
 const onRegistered = async (message: VideoRegisteredNotification) => {
-  console.log('Processing message: ', message);
+  logger.info('Processing message', { message });
 
   // @ts-expect-error - we don't need to provide all the event properties
   await videoRegistered({ Records: [{ Sns: { Message: JSON.stringify(message) } }] });
 
-  console.log('Message processed');
+  logger.info('Message processed');
 }
 
 const main = async () => {
@@ -17,7 +20,7 @@ const main = async () => {
     [801, 'MC Entertainment'],
   ]
 
-  console.log('TEST: Episodes should be registered on the first run');
+  logger.info('Test: Episodes should be registered on the first run');
   await onRegistered({
     items: [
       {
@@ -43,9 +46,9 @@ const main = async () => {
       },
     ],
   });
-  console.warn('Expected: 3 episodes registered\n\n');
+  logger.warn('Expected: 3 episodes registered');
 
-  console.log('TEST: Episodes should not be registered twice');
+  logger.info('Test: Episodes should not be registered twice');
   await onRegistered({
     items: [
       {
@@ -57,9 +60,9 @@ const main = async () => {
       },
     ],
   });
-  console.warn('Expected: No episodes registered\n\n');
+  logger.warn('Expected: No episodes registered');
 
-  console.log('TEST: Only new episodes should be registered');
+  logger.info('Test: Only new episodes should be registered');
   await onRegistered({
     items: [
       {
@@ -92,9 +95,9 @@ const main = async () => {
       },
     ],
   });
-  console.warn('Expected: 4&5 episodes registered\n\n');
+  logger.warn('Expected: 4&5 episodes registered');
 
-  console.log('TEST: Different titles should be registered separately');
+  logger.info('Test: Different titles should be registered separately');
   await onRegistered({
     items: [
       {
@@ -120,9 +123,9 @@ const main = async () => {
       },
     ],
   });
-  console.warn('Expected: 2 episodes registered for 1st title, 1 episode for 2nd title\n\n');
+  logger.warn('Expected: 2 episodes registered for 1st title, 1 episode for 2nd title');
 
-  console.log('TEST: When we add last episode, the anime should be deleted');
+  logger.info('Test: When we add last episode, the anime should be deleted');
   await onRegistered({
     items: Array.from({ length: 24 }, (_, i) => ({
       videoKey: {
@@ -132,11 +135,11 @@ const main = async () => {
       },
     })),
   });
-  console.warn('Expected: Anime deleted\n\n');
+  logger.warn('Expected: Anime deleted');
 
-  console.log('TEST: On Schedule');
+  logger.info('Test: On Schedule');
   await onSchedule({} as never);
-  console.warn('Expected: No errors\n\n');
+  logger.warn('Expected: No errors');
 }
 
 main();

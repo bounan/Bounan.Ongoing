@@ -5,6 +5,7 @@ import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as eventBridge from 'aws-cdk-lib/aws-events';
 import * as eventBridgeTargets from 'aws-cdk-lib/aws-events-targets';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
+import { LoggingFormat } from 'aws-cdk-lib/aws-lambda';
 import * as logs from 'aws-cdk-lib/aws-logs';
 import * as sns from 'aws-cdk-lib/aws-sns';
 import * as subs from 'aws-cdk-lib/aws-sns-subscriptions';
@@ -100,6 +101,7 @@ export class OngoingCdkStack extends cfn.Stack {
         entry: `../app/src/handlers/${handlerName}/handler.ts`,
         handler: 'handler',
         logGroup: logGroup,
+        loggingFormat: LoggingFormat.JSON,
         timeout: cfn.Duration.seconds(90),
       });
 

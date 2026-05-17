@@ -18,6 +18,8 @@ vi.mock('../../config/config', () => ({
 }));
 
 describe('checkIfCompleted', () => {
+  let consoleLogSpy: ReturnType<typeof vi.spyOn>;
+
   beforeEach(() => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date('2026-01-24T12:00:00.000Z'));
@@ -25,8 +27,7 @@ describe('checkIfCompleted', () => {
     getAnimeByIdMock.mockReset();
     useRateLimitMock.mockClear();
 
-    vi.spyOn(console, 'log').mockImplementation(() => undefined);
-    vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    consoleLogSpy = vi.spyOn(console, 'log').mockImplementation(() => undefined);
   });
 
   it('returns true when the anime is outdated (and does not call the API)', async () => {
@@ -45,7 +46,7 @@ describe('checkIfCompleted', () => {
 
     expect(result).toBe(false);
     expect(getAnimeByIdMock).toHaveBeenCalledWith(123);
-    expect(console.warn).toHaveBeenCalled();
+    expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining('"level":"warn"'));
   });
 
   it('returns true when observed last episode meets/exceeds expected last episode', async () => {
@@ -82,6 +83,6 @@ describe('checkIfCompleted', () => {
     const result = await checkIfCompleted(123, lastUpdate, new Set([1, 2, 3]));
 
     expect(result).toBe(false);
-    expect(console.warn).toHaveBeenCalled();
+    expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining('"level":"warn"'));
   });
 });
