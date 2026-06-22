@@ -5,11 +5,10 @@ on:
     types: [ opened, synchronize, reopened, ready_for_review ]
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
+  pull-requests: read
 
 jobs:
   prerelease-checks:
     name: Prerelease Checks
     uses: ./.github/workflows/shared-prerelease-checks.yml
-    secrets: inherit

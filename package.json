@@ -13,12 +13,12 @@
     "dependencies:check": "pnpm outdated --recursive --use-stderr",
     "dependencies:update": "pnpm update --recursive --latest",
     "licenses:scan": "pnpm licenses list --prod --json > thirdparty.json",
-    "licenses:generate": "pnpm run -w licenses:scan && jiti scripts/format-thirdparty.ts",
+    "licenses:generate": "pnpm run -w licenses:scan && node scripts/format-thirdparty.mjs",
     "cdk:synth": "pnpm -r --filter infra cdk:synth",
     "cdk:diff": "pnpm -r --filter infra cdk:diff",
     "cdk:deploy": "pnpm -r --filter infra cdk:deploy",
     "all-commited": "git diff --exit-code && git diff --cached --exit-code",
-    "prerelease": "npm-run-all2 --parallel typecheck lint test knip licenses:generate && pnpm run -w all-commited && echo 'All checks passed!'"
+    "prerelease": "npm-run-all2 --parallel typecheck lint test knip && pnpm run -w all-commited && echo 'All checks passed!'"
   },
   "type": "module",
   "license": "BSD-3-Clause",

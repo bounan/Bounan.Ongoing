@@ -69,7 +69,7 @@ export class OngoingCdkStack extends cfn.Stack {
     topic.addSubscription(new subs.EmailSubscription(config.alertEmail));
 
     const metricFilter = logGroup.addMetricFilter('ErrorMetricFilter', {
-      filterPattern: logs.FilterPattern.anyTerm('ERROR'),
+      filterPattern: logs.FilterPattern.anyTerm('ERROR', 'error'),
       metricNamespace: this.stackName,
       metricName: 'ErrorCount',
       metricValue: '1',

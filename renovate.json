@@ -1,19 +1,30 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:best-practices",
-    "group:all"
+    "config:best-practices"
   ],
   "dependencyDashboard": true,
-  "schedule": "* 6 * * 6",
+  "schedule": [
+    "* 6 * * 6"
+  ],
   "timezone": "UTC",
   "prHourlyLimit": 0,
-  "prConcurrentLimit": 1,
-  "automerge": true,
-  "automergeType": "pr",
-  "automergeStrategy": "squash",
+  "prConcurrentLimit": 3,
   "packageRules": [
     {
+      "description": "Group and automerge updates that do not change a major version",
+      "matchUpdateTypes": [
+        "digest",
+        "patch",
+        "minor"
+      ],
+      "groupName": "all non-major dependencies",
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash"
+    },
+    {
+      "description": "Keep pnpm/action-setup pinned to the supported release",
       "matchPackageNames": [
         "pnpm/action-setup"
       ],

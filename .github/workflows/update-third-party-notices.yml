@@ -1,0 +1,58 @@
+name: Update Third-Party Notices
+
+on:
+  push:
+    branches: [ "master" ]
+    paths:
+      - 'package.json'
+      - 'packages/**/package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - 'scripts/format-thirdparty.mjs'
+      - 'third-party/common'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-third-party-notices
+  cancel-in-progress: false
+
+jobs:
+  update-notices:
+    name: Update Notices
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 1
+          submodules: 'true'
+
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
+
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # v6.3.0
+        with:
+          node-version: 24
+          cache: 'pnpm'
+
+      - name: Install production dependencies
+        run: pnpm install --frozen-lockfile --prod --ignore-scripts
+
+      - name: Generate third-party notices
+        run: pnpm run licenses:generate
+
+      - name: Commit updated notices
+        shell: bash
+        run: |
+          if git diff --quiet -- THIRD_PARTY_NOTICES.md; then
+            echo "Third-party notices are up to date."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add THIRD_PARTY_NOTICES.md
+          git commit -m "chore(licenses): update third-party notices"
+          git push origin HEAD:master
