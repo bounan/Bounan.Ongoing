@@ -31,8 +31,11 @@ catalog:
   typescript-eslint: 8.58.1
   vitest: 4.1.4
 
-minimumReleaseAge: 1400 # 1 day
+# Delay newly published versions for one day to reduce supply-chain risk.
+minimumReleaseAge: 1440
 
+# Use hoisted node linker for compatibility with LlrtFunction construct. This construct bundles
+# dependencies using docker, which does not work with host's symlinks.
 nodeLinker: hoisted
 
 onlyBuiltDependencies:
