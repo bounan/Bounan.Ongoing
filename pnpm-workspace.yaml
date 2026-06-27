@@ -2,6 +2,9 @@ packages:
   - packages/*
   - third-party/common/ts
 
+allowBuilds:
+  esbuild: true
+
 blockExoticSubdeps: true
 
 catalog:
