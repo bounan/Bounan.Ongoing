@@ -28,11 +28,11 @@
   },
   "engines": {
     "node": ">=20",
-    "pnpm": ">=10",
+    "pnpm": ">=11",
     "npm": "please-use-pnpm",
     "yarn": "please-use-pnpm"
   },
-  "packageManager": "pnpm@10.34.4",
+  "packageManager": "pnpm@11.9.0",
   "devDependencies": {
     "@eslint/js": "catalog:",
     "@vitest/coverage-v8": "catalog:",
