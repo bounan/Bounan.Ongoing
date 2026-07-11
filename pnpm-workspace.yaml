@@ -9,31 +9,31 @@ allowBuilds:
 blockExoticSubdeps: true
 
 catalog:
-  '@aws-sdk/client-dynamodb': 3.1075.0
-  '@aws-sdk/client-lambda': 3.1075.0
-  '@aws-sdk/client-ssm': 3.1075.0
-  '@aws-sdk/lib-dynamodb': 3.1075.0
+  '@aws-sdk/client-dynamodb': 3.1082.0
+  '@aws-sdk/client-lambda': 3.1082.0
+  '@aws-sdk/client-ssm': 3.1082.0
+  '@aws-sdk/lib-dynamodb': 3.1082.0
   '@eslint/js': 10.0.1
   '@lightweight-clients/jikan-api-lightweight-client': 4.0.2
   '@types/aws-lambda': 8.10.162
-  '@types/node': 25.9.4
-  '@vitest/coverage-v8': 4.1.9
-  '@vitest/ui': 4.1.9
-  aws-cdk: 2.1128.1
-  aws-cdk-lib: 2.260.0
+  '@types/node': 25.9.5
+  '@vitest/coverage-v8': 4.1.10
+  '@vitest/ui': 4.1.10
+  aws-cdk: 2.1129.0
+  aws-cdk-lib: 2.261.0
   aws-sdk-client-mock: 4.1.0
   cdk-lambda-llrt: 0.1.4
   constructs: 10.6.0
   cross-env: 10.1.0
-  eslint: 10.5.0
+  eslint: 10.6.0
   eslint-plugin-simple-import-sort: 13.0.0
   jiti: 2.7.0
-  knip: 6.18.0
-  msw: 2.14.6
+  knip: 6.25.0
+  msw: 2.15.0
   npm-run-all2: 9.0.2
   typescript: 6.0.3
-  typescript-eslint: 8.62.0
-  vitest: 4.1.9
+  typescript-eslint: 8.63.0
+  vitest: 4.1.10
 
 # Delay newly published versions for one day to reduce supply-chain risk.
 minimumReleaseAge: 1440
