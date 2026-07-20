@@ -83,7 +83,7 @@ https://github.com/aws/aws-sdk-js-v3/tree/main/packages/token-providers
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/types
 
-## @aws-sdk/util-dynamodb 3.996.6
+## @aws-sdk/util-dynamodb 3.996.7
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages/util-dynamodb
 
@@ -99,7 +99,7 @@ https://github.com/awslabs/aws-lambda-invoke-store
 License: MIT
 https://github.com/lightweight-clients/jikan-api-lightweight-client
 
-## @smithy/core 3.29.3, 3.29.5
+## @smithy/core 3.29.5
 License: Apache-2.0
 https://github.com/smithy-lang/smithy-typescript/tree/main/packages/core
 
@@ -107,11 +107,11 @@ https://github.com/smithy-lang/smithy-typescript/tree/main/packages/core
 License: Apache-2.0
 https://github.com/smithy-lang/smithy-typescript/tree/main/packages/credential-provider-imds
 
-## @smithy/fetch-http-handler 5.6.5, 5.6.7
+## @smithy/fetch-http-handler 5.6.7
 License: Apache-2.0
 https://github.com/smithy-lang/smithy-typescript/tree/main/packages/fetch-http-handler
 
-## @smithy/node-http-handler 4.9.5, 4.9.7
+## @smithy/node-http-handler 4.9.7
 License: Apache-2.0
 https://github.com/smithy-lang/smithy-typescript/tree/main/packages/node-http-handler
 
