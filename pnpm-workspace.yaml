@@ -31,7 +31,7 @@ catalog:
   knip: 6.26.0
   msw: 2.15.0
   npm-run-all2: 9.0.2
-  typescript: 6.0.3
+  typescript: 7.0.2
   typescript-eslint: 8.64.0
   vitest: 4.1.10
 
