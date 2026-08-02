@@ -1,6 +1,8 @@
+// biome-ignore-all assist/source/organizeImports: Mock modules must load before AWS command classes.
+import { getInputMock, sendMock } from '../test/mocks/aws-sdk-lib-dynamodb-mock';
+
 import { GetCommand } from '@aws-sdk/lib-dynamodb';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { getInputMock, sendMock } from '../test/mocks/aws-sdk-lib-dynamodb-mock';
 
 import { getAnimeKey, getEpisodes } from './repository';
 

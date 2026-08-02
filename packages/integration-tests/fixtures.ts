@@ -11,7 +11,8 @@ export const it = baseTest
     process.env.AWS_SECRET_ACCESS_KEY = 'test';
     process.env.AWS_REGION = 'us-east-1';
   })
-  .extend('api', { scope: 'test', auto: true }, async (_fixtures, { onCleanup }) => {
+  // biome-ignore lint/correctness/noEmptyPattern: Vitest fixtures require an object destructuring pattern.
+  .extend('api', { scope: 'test', auto: true }, async ({}, { onCleanup }) => {
     // Create a new HttpInterceptor for each test to ensure clean state and isolation.
     const server = HttpInterceptor.create();
     onCleanup(() => server[Symbol.dispose]());

@@ -1,6 +1,8 @@
-﻿import { PutCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+// biome-ignore-all assist/source/organizeImports: Mock modules must load before AWS command classes.
 import { putInputMock, updateInputMock } from '../../test/mocks/aws-sdk-lib-dynamodb-mock';
+
+import { PutCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { addAnime, addEpisodes } from './repository';
 
