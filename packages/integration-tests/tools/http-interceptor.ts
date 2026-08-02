@@ -62,7 +62,7 @@ export class HttpInterceptor implements Disposable {
     );
   }
 
-  public mockJikan(myAnimeListId: number, episodes: number) {
+  public mockJikan(myAnimeListId: number, episodes: number | undefined) {
     this._server.use(
       http.get(`https://api.jikan.moe/v4/anime/${myAnimeListId}`, () => HttpResponse.json({ data: { episodes } })),
     );

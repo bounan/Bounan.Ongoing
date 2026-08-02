@@ -123,7 +123,7 @@ describe('on-schedule', () => {
     api.mockLambda(`loan-api-function-arn-${task.id}`, [1, 2, 3, 4]);
     const animanRegistry = api.mockLambda(`animan-register-videos-${task.id}`, {});
     // Jikan API returns fewer episodes than the max observed episode -> treat as incomplete and notify about new episode
-    api.mockJikan(DEFAULT_ENTITY.myAnimeListId, undefined!);
+    api.mockJikan(DEFAULT_ENTITY.myAnimeListId, undefined);
     await table.putRecords({
       ...DEFAULT_ENTITY,
       episodes: new Set([1, 2, 3]),

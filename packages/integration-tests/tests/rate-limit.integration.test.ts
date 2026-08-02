@@ -33,7 +33,7 @@ describe('useRateLimit', () => {
         console.log(`Checking result #${i}`);
         const res = results[i] as Record<string, unknown>;
         expect(res).toBeInstanceOf(Object);
-        expect(res['type']).not.toBe('RateLimitException');
+        expect(res.type).not.toBe('RateLimitException');
       }
     }, 20000);
   });

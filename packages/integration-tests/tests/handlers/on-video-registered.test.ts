@@ -3,6 +3,7 @@ import { describe, expect, vi } from 'vitest';
 
 import type { VideoKey } from '../../../../third-party/common/ts/interfaces';
 import { handler } from '../../../app/src/handlers/on-video-registered/handler';
+import type { AnimeEntity } from '../../../app/src/models/anime-entity';
 import { it } from '../../fixtures';
 import { expectNoDbChanges, performCommonChecks } from '../../tools/custom-expectations';
 import { makeSnsEvent } from '../../tools/payload-generators';
@@ -11,6 +12,12 @@ const DEFAULT_VIDEO_KEY = { myAnimeListId: 1, dub: 'a dub', episode: 1 } as cons
 
 const makeOnVideoRegisteredEvent = (...items: VideoKey[]): SNSEvent => {
   return makeSnsEvent({ items: items.map((videoKey) => ({ videoKey })) });
+};
+
+const findAnime = (records: AnimeEntity[]): AnimeEntity => {
+  const record = records.find((item) => item.myAnimeListId === DEFAULT_VIDEO_KEY.myAnimeListId);
+  if (!record) throw new Error('Expected the registered anime to be present');
+  return record;
 };
 
 describe('on-video-registered', () => {
@@ -71,7 +78,7 @@ describe('on-video-registered', () => {
     const initialState = await table.getAllRecords();
     await handler(makeOnVideoRegisteredEvent(DEFAULT_VIDEO_KEY));
     const arrangedState = await table.getAllRecords();
-    const arrangedRecord = arrangedState.find((i) => i.myAnimeListId === DEFAULT_VIDEO_KEY.myAnimeListId)!;
+    const arrangedRecord = findAnime(arrangedState);
 
     // Act
     const newVideoKey = { ...DEFAULT_VIDEO_KEY, episode: 2 } as const;
@@ -79,7 +86,7 @@ describe('on-video-registered', () => {
 
     // Assert
     const finalState = await table.getAllRecords();
-    const finalRecord = finalState.find((i) => i.myAnimeListId === DEFAULT_VIDEO_KEY.myAnimeListId)!;
+    const finalRecord = findAnime(finalState);
     expect(finalRecord.updatedAt > arrangedRecord.updatedAt).toBeTruthy();
 
     const expectedState = [
@@ -100,7 +107,7 @@ describe('on-video-registered', () => {
     // Assert
     const finalState = await table.getAllRecords();
 
-    const newItem = finalState.find((i) => i.myAnimeListId === DEFAULT_VIDEO_KEY.myAnimeListId)!;
+    const newItem = findAnime(finalState);
     expect(Object.keys(newItem)).to.have.members([
       'animeKey',
       'myAnimeListId',
@@ -114,7 +121,7 @@ describe('on-video-registered', () => {
     expect(newItem.dub).toEqual('a dub');
     expect(newItem.episodes).toEqual(new Set([1]));
     expect(newItem.updatedAt).toEqual(newItem.createdAt);
-    expect(new Date(newItem.createdAt).getTime()).toBeCloseTo(new Date().getTime(), -3);
+    expect(new Date(newItem.createdAt).getTime()).toBeCloseTo(Date.now(), -3);
   });
 
   it('should retry on transient error using build-in ddb retries', async ({ table, api }) => {
@@ -123,7 +130,7 @@ describe('on-video-registered', () => {
     await handler(makeOnVideoRegisteredEvent(DEFAULT_VIDEO_KEY));
 
     const finalState = await table.getAllRecords();
-    const newItem = finalState.find((i) => i.myAnimeListId === DEFAULT_VIDEO_KEY.myAnimeListId)!;
+    const newItem = findAnime(finalState);
     expect(newItem).toBeDefined();
   });
 

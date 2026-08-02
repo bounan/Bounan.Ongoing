@@ -28,11 +28,11 @@ export const it = baseTest
   .extend('config', { scope: 'test', auto: true }, async ({ task, table }) => {
     // Provide a config. Use non-persistent values that include task.id to ensure nothing is hardcoded.
     return {
-      animan: { registerVideosLambdaName: 'animan-register-videos-' + task.id },
-      loanApiConfig: { functionArn: 'loan-api-function-arn-' + task.id },
-      malApiConfig: { token: 'mal-api-token-' + task.id },
+      animan: { registerVideosLambdaName: `animan-register-videos-${task.id}` },
+      loanApiConfig: { functionArn: `loan-api-function-arn-${task.id}` },
+      malApiConfig: { token: `mal-api-token-${task.id}` },
       database: { tableName: table.tableName },
-      processing: { outdatedPeriodHours: 24 * (Math.floor(new Date().getTime() % 10) + 1) },
+      processing: { outdatedPeriodHours: 24 * (Math.floor(Date.now() % 10) + 1) },
     } satisfies Config;
   })
   .extend('ssmConfig', { scope: 'test', auto: true }, async ({ api, config }) => {

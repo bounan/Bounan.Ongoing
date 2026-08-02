@@ -23,7 +23,7 @@ export const checkIfCompleted = async (
   lastUpdate: Date,
   allEpisodes: Set<number>,
 ): Promise<boolean> => {
-  const outdatedDate = new Date(new Date().getTime() - config.value.processing.outdatedPeriodHours * 60 * 60 * 1000);
+  const outdatedDate = new Date(Date.now() - config.value.processing.outdatedPeriodHours * 60 * 60 * 1000);
   const isOutdated = lastUpdate < outdatedDate;
   if (isOutdated) {
     logger.info('Anime is outdated', { myAnimeListId, outdatedDate, lastUpdate, isOutdated });

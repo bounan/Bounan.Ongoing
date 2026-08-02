@@ -7,9 +7,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { getAnimeKey, getEpisodes } from './repository';
 
 vi.mock('@aws-sdk/client-dynamodb', () => {
-  class DynamoDBClient {
-    constructor() {}
-  }
+  class DynamoDBClient {}
 
   return { DynamoDBClient };
 });

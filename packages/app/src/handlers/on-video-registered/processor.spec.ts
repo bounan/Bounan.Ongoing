@@ -18,7 +18,7 @@ describe('processor.process', () => {
   });
 
   it('returns early when items is missing', async () => {
-    await process({ items: undefined! });
+    await process({ items: undefined } as unknown as VideoRegisteredNotification);
 
     expect(getEpisodesMock).not.toHaveBeenCalled();
     expect(addAnimeMock).not.toHaveBeenCalled();
