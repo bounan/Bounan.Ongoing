@@ -39,7 +39,7 @@ None
 ### Used APIs:
 
 - AniMan Lambda
-- [Jikan API](https://jikan.moe/)
+- [Shikimori API](https://shikimori.one/api/doc)
 - LoanAPI
 
 ### Provided APIs

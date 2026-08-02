@@ -14,7 +14,7 @@ catalog:
   '@aws-sdk/client-lambda': 3.1087.0
   '@aws-sdk/client-ssm': 3.1087.0
   '@aws-sdk/lib-dynamodb': 3.1087.0
-  '@lightweight-clients/jikan-api-lightweight-client': 4.0.2
+  '@lightweight-clients/shikimori-graphql-api-lightweight-client': 1.2.0
   '@types/aws-lambda': 8.10.162
   '@types/node': 25.9.5
   '@vitest/coverage-v8': 4.1.10

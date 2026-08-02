@@ -1,15 +1,20 @@
-import { getAnimeById } from '@lightweight-clients/jikan-api-lightweight-client';
+import { animes } from '@lightweight-clients/shikimori-graphql-api-lightweight-client';
 
 import { createLogger } from '../../../../../third-party/common/ts/runtime/logger';
 import { config } from '../../config/config';
 import { useRateLimit } from './rate-limit';
 
-const getAnimeByIdRateLimited = useRateLimit(getAnimeById, 1000);
+const getAnimeInfo = async (animeId: number) => {
+  const [animeInfo] = await animes({ ids: animeId.toString(), limit: 1 }, { episodes: 1 });
+  return animeInfo ?? null;
+};
+
+const getAnimeInfoRateLimited = useRateLimit(getAnimeInfo, 1000);
 const logger = createLogger('@app/shared/helpers/is-completed');
 
-const tryGetAnimeById = async (myAnimeListId: number): Promise<ReturnType<typeof getAnimeById> | null> => {
+const tryGetAnimeInfo = async (myAnimeListId: number): Promise<ReturnType<typeof getAnimeInfo> | null> => {
   try {
-    return await getAnimeByIdRateLimited(myAnimeListId);
+    return await getAnimeInfoRateLimited(myAnimeListId);
   } catch (error) {
     logger.error('Failed to get anime info', error, { myAnimeListId });
     return null;
@@ -30,14 +35,14 @@ export const checkIfCompleted = async (
     return true;
   }
 
-  const animeInfo = await tryGetAnimeById(myAnimeListId);
+  const animeInfo = await tryGetAnimeInfo(myAnimeListId);
   logger.info('Fetched anime info', { myAnimeListId, animeInfo });
   if (!animeInfo) {
     logger.warn('Failed to get anime info', { myAnimeListId });
     return false;
   }
 
-  const expectedLastEpisode: number | undefined | null = animeInfo?.data?.episodes;
+  const expectedLastEpisode = animeInfo.episodes;
   logger.info('Resolved expected last episode', { myAnimeListId, expectedLastEpisode });
   if (!expectedLastEpisode) {
     // If an expected last episode is not defined, it is probably a movie or a single episode anime.

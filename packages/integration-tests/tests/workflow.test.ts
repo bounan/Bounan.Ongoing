@@ -31,7 +31,7 @@ describe('workflow', () => {
 
     const animanRegistry = api.mockLambda<RegisterVideosRequest>(`animan-register-videos-${task.id}`, {});
     api.mockLambda(`loan-api-function-arn-${task.id}`, [1, 2, 3]);
-    api.mockJikan(anime.myAnimeListId, 24);
+    api.mockShikimori(anime.myAnimeListId, 24);
 
     // 1) Scheduler detects episode 3 and sends one notification to Animan.
     await onScheduleHandler({} as never);
@@ -70,7 +70,7 @@ describe('workflow', () => {
     api.mockLambda(`loan-api-function-arn-${task.id}`, [1, 2, 3, 4]);
 
     // Maintenance pass sees anime as complete (expected last episode == observed max).
-    api.mockJikan(anime.myAnimeListId, 4);
+    api.mockShikimori(anime.myAnimeListId, 4);
     await onScheduleHandler({} as never);
     expect(animanRegistry.requests).toHaveLength(2);
 

@@ -1,4 +1,4 @@
-import { getAnimeById } from '@lightweight-clients/jikan-api-lightweight-client';
+import { animes, client_setUserAgent } from '@lightweight-clients/shikimori-graphql-api-lightweight-client';
 import { afterEach, describe, expect, test } from 'vitest';
 
 import { useRateLimit } from '../../app/src/shared/helpers/rate-limit';
@@ -17,23 +17,22 @@ describe('useRateLimit', () => {
   });
 
   describe('integration tests', () => {
-    test('integration with jikan', async () => {
+    test('integration with Shikimori', async () => {
+      client_setUserAgent('Bounan.Ongoing');
       const callsCount = 10;
-      const results: unknown[] = [];
-      const rateLimitedCallback = useRateLimit(() => getAnimeById(801), 1000);
+      const results: { episodes: number }[][] = [];
+      const rateLimitedCallback = useRateLimit(() => animes({ ids: '801', limit: 1 }, { episodes: 1 }), 1000);
 
       for (let i = 0; i < callsCount; i++) {
         timestamps.push(Date.now());
-        const res = await rateLimitedCallback({});
-        results.push(res);
+        results.push(await rateLimitedCallback({}));
       }
 
-      expect(results.length).equal(callsCount);
+      expect(results).toHaveLength(callsCount);
       for (let i = 0; i < callsCount; i++) {
         console.log(`Checking result #${i}`);
-        const res = results[i] as Record<string, unknown>;
-        expect(res).toBeInstanceOf(Object);
-        expect(res.type).not.toBe('RateLimitException');
+        expect(results[i]).toHaveLength(1);
+        expect(results[i][0].episodes).toBeTypeOf('number');
       }
     }, 20000);
   });

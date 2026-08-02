@@ -23,7 +23,7 @@ describe('on-schedule', () => {
   // REQ-OS-01: Inactive -> removed regardless of completion status.
   // "Inactive" means updatedAt is older than outdatedPeriodHours (30 days).
   // Note: the handler calls Loan API first (registerNewVideos) even for inactive anime,
-  // then deletes them in cleanupCompletedSeries without calling the Jikan API.
+  // then deletes them in cleanupCompletedSeries without calling the Shikimori API.
   it('REQ-OS-01: removes inactive anime from the database', async ({ table, api, task, config }) => {
     const outdatedPeriodMs = 1000 * 60 * 60 * config.processing.outdatedPeriodHours;
     const inactiveUpdatedAt = new Date(Date.now() - outdatedPeriodMs).toISOString();
@@ -41,10 +41,10 @@ describe('on-schedule', () => {
   });
 
   // REQ-OS-02: Active + Complete -> removed.
-  // Jikan API reports total episodes = observed max -> series is complete.
+  // Shikimori API reports total episodes = observed max -> series is complete.
   it('REQ-OS-02: removes complete anime from the database', async ({ table, api, task }) => {
     api.mockLambda(`loan-api-function-arn-${task.id}`, [1, 2, 3, 4, 12]);
-    api.mockJikan(DEFAULT_ENTITY.myAnimeListId, 12);
+    api.mockShikimori(DEFAULT_ENTITY.myAnimeListId, 12);
     await table.putRecords({
       ...DEFAULT_ENTITY,
       episodes: new Set([1, 2, 3, 4, 12]),
@@ -59,7 +59,7 @@ describe('on-schedule', () => {
   // REQ-OS-03: Active + Not complete + 0 new episodes -> no action.
   it('REQ-OS-03: takes no action when there are no new episodes', async ({ table, api, task }) => {
     api.mockLambda(`loan-api-function-arn-${task.id}`, [1, 2, 3]);
-    api.mockJikan(DEFAULT_ENTITY.myAnimeListId, 24);
+    api.mockShikimori(DEFAULT_ENTITY.myAnimeListId, 24);
     await table.putRecords({
       ...DEFAULT_ENTITY,
       episodes: new Set([1, 2, 3]),
@@ -77,7 +77,7 @@ describe('on-schedule', () => {
   it('REQ-OS-04: sends a notification for a single new episode', async ({ table, api, task }) => {
     api.mockLambda(`loan-api-function-arn-${task.id}`, [1, 2, 3, 4]);
     const animanRegistry = api.mockLambda(`animan-register-videos-${task.id}`, {});
-    api.mockJikan(DEFAULT_ENTITY.myAnimeListId, 24);
+    api.mockShikimori(DEFAULT_ENTITY.myAnimeListId, 24);
     await table.putRecords({
       ...DEFAULT_ENTITY,
       episodes: new Set([1, 2, 3]),
@@ -98,7 +98,7 @@ describe('on-schedule', () => {
   it('REQ-OS-05: sends a single notification containing all new episodes', async ({ table, api, task }) => {
     api.mockLambda(`loan-api-function-arn-${task.id}`, [1, 2, 3, 4, 5, 6]);
     const animanRegistry = api.mockLambda(`animan-register-videos-${task.id}`, {});
-    api.mockJikan(DEFAULT_ENTITY.myAnimeListId, 24);
+    api.mockShikimori(DEFAULT_ENTITY.myAnimeListId, 24);
     await table.putRecords({
       ...DEFAULT_ENTITY,
       episodes: new Set([1, 2, 3]),
@@ -119,11 +119,11 @@ describe('on-schedule', () => {
     await expectNoDbChanges(initialState, table);
   });
 
-  it('treats anime incomplete if expected episodes are not returned by Jikan API', async ({ table, api, task }) => {
+  it('treats anime incomplete if expected episodes are not returned by Shikimori API', async ({ table, api, task }) => {
     api.mockLambda(`loan-api-function-arn-${task.id}`, [1, 2, 3, 4]);
     const animanRegistry = api.mockLambda(`animan-register-videos-${task.id}`, {});
-    // Jikan API returns fewer episodes than the max observed episode -> treat as incomplete and notify about new episode
-    api.mockJikan(DEFAULT_ENTITY.myAnimeListId, undefined);
+    // Shikimori API returns fewer episodes than the max observed episode -> treat as incomplete and notify about new episode
+    api.mockShikimori(DEFAULT_ENTITY.myAnimeListId, undefined);
     await table.putRecords({
       ...DEFAULT_ENTITY,
       episodes: new Set([1, 2, 3]),
@@ -142,7 +142,7 @@ describe('on-schedule', () => {
 
   it('should not delete single-episode anime is with 0 episode', async ({ table, api, task }) => {
     api.mockLambda(`loan-api-function-arn-${task.id}`, [0]);
-    api.mockJikan(DEFAULT_ENTITY.myAnimeListId, 1);
+    api.mockShikimori(DEFAULT_ENTITY.myAnimeListId, 1);
     await table.putRecords({
       ...DEFAULT_ENTITY,
       episodes: new Set([0]),

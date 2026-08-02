@@ -7,7 +7,7 @@ This document outlines the business rules and system requirements for the anime 
 1. General purpose of the system is to track ongoing anime series and their episodes, ensuring
    that newly available episodes are registered with downstream services.
 2. On the system side, Anime is identified by a unique combination of `myAnimeListId` and `dub`.
-3. Number of expected episodes for an anime is determined by external Library API (e.g., Jikan).
+3. Number of expected episodes for an anime is determined by external Library API (Shikimori).
    If the API does not provide episode information, the system assumes that the anime is not complete.
 4. An anime is considered "complete" when all expected episodes have been registered in the database.
 5. An anime is considered "inactive" if no new episodes have been registered for it in the last month.

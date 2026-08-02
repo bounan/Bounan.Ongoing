@@ -21,9 +21,9 @@ catalogs:
     '@biomejs/biome':
       specifier: 2.5.6
       version: 2.5.6
-    '@lightweight-clients/jikan-api-lightweight-client':
-      specifier: 4.0.2
-      version: 4.0.2
+    '@lightweight-clients/shikimori-graphql-api-lightweight-client':
+      specifier: 1.2.0
+      version: 1.2.0
     '@types/aws-lambda':
       specifier: 8.10.162
       version: 8.10.162
@@ -113,9 +113,9 @@ importers:
       '@aws-sdk/lib-dynamodb':
         specifier: 'catalog:'
         version: 3.1087.0(@aws-sdk/client-dynamodb@3.1087.0)
-      '@lightweight-clients/jikan-api-lightweight-client':
+      '@lightweight-clients/shikimori-graphql-api-lightweight-client':
         specifier: 'catalog:'
-        version: 4.0.2
+        version: 1.2.0
     devDependencies:
       '@types/aws-lambda':
         specifier: 'catalog:'
@@ -159,9 +159,9 @@ importers:
       '@aws-sdk/lib-dynamodb':
         specifier: 'catalog:'
         version: 3.1087.0(@aws-sdk/client-dynamodb@3.1087.0)
-      '@lightweight-clients/jikan-api-lightweight-client':
+      '@lightweight-clients/shikimori-graphql-api-lightweight-client':
         specifier: 'catalog:'
-        version: 4.0.2
+        version: 1.2.0
       '@types/aws-lambda':
         specifier: 'catalog:'
         version: 8.10.162
@@ -424,8 +424,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@lightweight-clients/jikan-api-lightweight-client@4.0.2':
-    resolution: {integrity: sha512-L3YTZwzloJ6ovN3avG6tVY2hrkXsCuSkZoUZjEuxzmq3LMMSy/vP+BOzdO5eRIjBTF/1VDs+UYIbWhpgGqiWUw==}
+  '@lightweight-clients/shikimori-graphql-api-lightweight-client@1.2.0':
+    resolution: {integrity: sha512-Omw+3Ucap6lJSolrUhmVY8P5IebXRu9wJcC/3CEZpN2gwDNeU+ddyxeuDfsPuuVn/Db4lxFmmxRZ3Lq2T6Wheg==}
 
   '@mswjs/interceptors@0.41.9':
     resolution: {integrity: sha512-VVPPgHyQ6ShqnrmDWuxjmUIsO9gWyOZFmuOfLd9LfBGQJwZfy0gvv9pbHSJuoFNIYC7ZDX9aoFwowjcdSC4E8w==}
@@ -2023,7 +2023,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@lightweight-clients/jikan-api-lightweight-client@4.0.2': {}
+  '@lightweight-clients/shikimori-graphql-api-lightweight-client@1.2.0': {}
 
   '@mswjs/interceptors@0.41.9':
     dependencies:

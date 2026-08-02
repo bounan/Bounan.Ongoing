@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { handler } from './handler';
 
 const initConfigMock = vi.hoisted(() => vi.fn());
+const setUserAgentMock = vi.hoisted(() => vi.fn());
 const configValue = vi.hoisted(() => ({
   loanApiConfig: { token: 'test-token' },
 }));
@@ -13,6 +14,10 @@ const checkIfCompletedMock = vi.hoisted(() => vi.fn());
 
 const getAllMock = vi.hoisted(() => vi.fn());
 const deleteAnimeMock = vi.hoisted(() => vi.fn());
+
+vi.mock('@lightweight-clients/shikimori-graphql-api-lightweight-client', () => ({
+  client_setUserAgent: setUserAgentMock,
+}));
 
 vi.mock('../../config/config', () => ({
   initConfig: initConfigMock,
@@ -43,6 +48,7 @@ vi.mock('./repository', () => ({
 describe('handler', () => {
   beforeEach(() => {
     initConfigMock.mockReset();
+    setUserAgentMock.mockReset();
     getEpisodesMock.mockReset();
     sendRegisterVideosRequestMock.mockReset();
     checkIfCompletedMock.mockReset();
@@ -81,6 +87,7 @@ describe('handler', () => {
     await handler({} as never);
 
     expect(initConfigMock).toHaveBeenCalledTimes(1);
+    expect(setUserAgentMock).toHaveBeenCalledWith('Bounan.Ongoing');
 
     // new videos only includes episode 2 for anime 1
     expect(sendRegisterVideosRequestMock).toHaveBeenCalledTimes(1);

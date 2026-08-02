@@ -30,7 +30,6 @@ export const it = baseTest
     return {
       animan: { registerVideosLambdaName: `animan-register-videos-${task.id}` },
       loanApiConfig: { functionArn: `loan-api-function-arn-${task.id}` },
-      malApiConfig: { token: `mal-api-token-${task.id}` },
       database: { tableName: table.tableName },
       processing: { outdatedPeriodHours: 24 * (Math.floor(Date.now() % 10) + 1) },
     } satisfies Config;

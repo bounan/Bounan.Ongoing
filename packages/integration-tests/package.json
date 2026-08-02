@@ -7,7 +7,7 @@
   "devDependencies": {
     "@aws-sdk/client-dynamodb": "catalog:",
     "@aws-sdk/lib-dynamodb": "catalog:",
-    "@lightweight-clients/jikan-api-lightweight-client": "catalog:",
+    "@lightweight-clients/shikimori-graphql-api-lightweight-client": "catalog:",
     "@types/aws-lambda": "catalog:",
     "msw": "catalog:",
     "typescript": "catalog:"

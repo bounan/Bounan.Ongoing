@@ -1,3 +1,4 @@
+import { client_setUserAgent } from '@lightweight-clients/shikimori-graphql-api-lightweight-client';
 import type { EventBridgeEvent } from 'aws-lambda';
 
 import type { VideoKey } from '../../../../../third-party/common/ts/interfaces';
@@ -68,6 +69,7 @@ const process = async (): Promise<void> => {
 export const handler = async (event: EventBridgeEvent<never, never>): Promise<void> => {
   logger.info('Processing event', { event });
   await initConfig();
+  client_setUserAgent('Bounan.Ongoing');
   await process();
   logger.info('Done');
 };
