@@ -15,15 +15,15 @@ const getNewVideos = async (anime: AnimeEntity): Promise<VideoKey[]> => {
   const loanApiEpisodes = await getEpisodes(anime.myAnimeListId, anime.dub);
   logger.info('Fetched Loan API episodes', { anime, loanApiEpisodes });
 
-  const newVideos = loanApiEpisodes.filter(ep => !anime.episodes.has(ep));
+  const newVideos = loanApiEpisodes.filter((ep) => !anime.episodes.has(ep));
   logger.info('Calculated new videos', { anime, newVideos });
 
-  return newVideos.map(ep => ({
+  return newVideos.map((ep) => ({
     myAnimeListId: anime.myAnimeListId,
     dub: anime.dub,
     episode: ep,
   }));
-}
+};
 
 const registerNewVideos = async (): Promise<void> => {
   const registeredAnimes = await getAll();
@@ -55,7 +55,7 @@ const cleanupCompletedSeries = async (): Promise<void> => {
       logger.info('Anime was deleted', { myAnimeListId: anime.myAnimeListId, dub: anime.dub });
     }
   }
-}
+};
 
 const process = async (): Promise<void> => {
   logger.info('Processing videos');
@@ -63,7 +63,7 @@ const process = async (): Promise<void> => {
 
   logger.info('Cleaning up completed series');
   await cleanupCompletedSeries();
-}
+};
 
 export const handler = async (event: EventBridgeEvent<never, never>): Promise<void> => {
   logger.info('Processing event', { event });

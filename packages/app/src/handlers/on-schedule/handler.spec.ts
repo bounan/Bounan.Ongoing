@@ -76,9 +76,7 @@ describe('handler', () => {
       .mockResolvedValueOnce([1, 2, 3]); // anime 2
 
     // Cleanup pass: first anime not completed, second completed
-    checkIfCompletedMock
-      .mockResolvedValueOnce(false)
-      .mockResolvedValueOnce(true);
+    checkIfCompletedMock.mockResolvedValueOnce(false).mockResolvedValueOnce(true);
 
     await handler({} as never);
 
@@ -86,15 +84,11 @@ describe('handler', () => {
 
     // new videos only includes episode 2 for anime 1
     expect(sendRegisterVideosRequestMock).toHaveBeenCalledTimes(1);
-    expect(sendRegisterVideosRequestMock).toHaveBeenCalledWith([
-      { myAnimeListId: 1, dub: false, episode: 2 },
-    ]);
+    expect(sendRegisterVideosRequestMock).toHaveBeenCalledWith([{ myAnimeListId: 1, dub: false, episode: 2 }]);
 
     expect(checkIfCompletedMock).toHaveBeenCalledTimes(2);
     expect(deleteAnimeMock).toHaveBeenCalledTimes(1);
-    expect(deleteAnimeMock).toHaveBeenCalledWith(
-      expect.objectContaining({ myAnimeListId: 2, dub: true }),
-    );
+    expect(deleteAnimeMock).toHaveBeenCalledWith(expect.objectContaining({ myAnimeListId: 2, dub: true }));
   });
 
   it('does not call sendRegisterVideosRequest when there are no new videos', async () => {

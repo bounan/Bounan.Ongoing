@@ -10,7 +10,7 @@ export const docClient = DynamoDBDocumentClient.from(dynamoDbClient);
 
 export const getAnimeKey = (animeKey: AnimeKey): string => {
   return `${animeKey.myAnimeListId}#${animeKey.dub}`;
-}
+};
 
 export const getEpisodes = async (animeKey: AnimeKey): Promise<Pick<AnimeEntity, 'episodes' | 'updatedAt'>> => {
   const command = new GetCommand({
@@ -21,4 +21,4 @@ export const getEpisodes = async (animeKey: AnimeKey): Promise<Pick<AnimeEntity,
 
   const response = await docClient.send(command);
   return response.Item as Pick<AnimeEntity, 'episodes' | 'updatedAt'>;
-}
+};

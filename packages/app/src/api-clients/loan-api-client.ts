@@ -6,10 +6,10 @@ type GetEpisodesRequest = { myAnimeListId: number; dub: string };
 type GetEpisodesResponse = number[];
 
 const getEpisodesInternal = (myAnimeListId: number, dub: string): Promise<GetEpisodesResponse> => {
-  return makeLambdaRequest<GetEpisodesRequest, GetEpisodesResponse>(
-    config.value.loanApiConfig.functionArn,
-    { myAnimeListId, dub },
-  );
-}
+  return makeLambdaRequest<GetEpisodesRequest, GetEpisodesResponse>(config.value.loanApiConfig.functionArn, {
+    myAnimeListId,
+    dub,
+  });
+};
 
 export const getEpisodes = asyncMemoized('getEpisodes', getEpisodesInternal);

@@ -1,15 +1,12 @@
-// eslint-disable-next-line simple-import-sort/imports
-import { getInputMock, sendMock } from '../test/mocks/aws-sdk-lib-dynamodb-mock';
-
 import { GetCommand } from '@aws-sdk/lib-dynamodb';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { getInputMock, sendMock } from '../test/mocks/aws-sdk-lib-dynamodb-mock';
 
 import { getAnimeKey, getEpisodes } from './repository';
 
 vi.mock('@aws-sdk/client-dynamodb', () => {
   class DynamoDBClient {
-    constructor() {
-    }
+    constructor() {}
   }
 
   return { DynamoDBClient };
@@ -80,9 +77,7 @@ describe('repository', () => {
     it('propagates DynamoDB errors', async () => {
       sendMock.mockRejectedValueOnce(new Error('ddb down'));
 
-      await expect(
-        getEpisodes({ myAnimeListId: 1, dub: 'true' }),
-      ).rejects.toThrow('ddb down');
+      await expect(getEpisodes({ myAnimeListId: 1, dub: 'true' })).rejects.toThrow('ddb down');
 
       expect(sendMock).toHaveBeenCalledTimes(1);
     });

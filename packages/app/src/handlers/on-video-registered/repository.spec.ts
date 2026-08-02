@@ -1,8 +1,6 @@
-﻿// eslint-disable-next-line simple-import-sort/imports
-import { putInputMock, updateInputMock } from '../../test/mocks/aws-sdk-lib-dynamodb-mock';
-
-import { PutCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb';
+﻿import { PutCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { putInputMock, updateInputMock } from '../../test/mocks/aws-sdk-lib-dynamodb-mock';
 
 import { addAnime, addEpisodes } from './repository';
 
@@ -69,9 +67,7 @@ describe('repository', () => {
       getAnimeKeyMock.mockReturnValueOnce('1#sub');
       sendMock.mockRejectedValueOnce(new Error('ddb down'));
 
-      await expect(
-        addAnime({ myAnimeListId: 1, dub: 'sub' }, new Set<number>([1])),
-      ).rejects.toThrow('ddb down');
+      await expect(addAnime({ myAnimeListId: 1, dub: 'sub' }, new Set<number>([1]))).rejects.toThrow('ddb down');
     });
   });
 
@@ -115,9 +111,7 @@ describe('repository', () => {
       getAnimeKeyMock.mockReturnValueOnce('5#sub');
       sendMock.mockRejectedValueOnce(new Error('ddb down'));
 
-      await expect(
-        addEpisodes({ myAnimeListId: 5, dub: 'sub' }, new Set<number>([2])),
-      ).rejects.toThrow('ddb down');
+      await expect(addEpisodes({ myAnimeListId: 5, dub: 'sub' }, new Set<number>([2]))).rejects.toThrow('ddb down');
     });
   });
 });

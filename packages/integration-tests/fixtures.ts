@@ -4,7 +4,6 @@ import type { Config } from '../app/src/config/types';
 import { DynamoDbTableFixture } from './tools/dynamodb';
 import { HttpInterceptor } from './tools/http-interceptor';
 
-
 export const it = baseTest
   .extend('global-envs', { scope: 'worker', auto: true }, async () => {
     // Register dummy AWS credentials to prevent AWS SDK from throwing "Missing credentials" error.
@@ -12,8 +11,7 @@ export const it = baseTest
     process.env.AWS_SECRET_ACCESS_KEY = 'test';
     process.env.AWS_REGION = 'us-east-1';
   })
-  // eslint-disable-next-line no-empty-pattern
-  .extend('api', { scope: 'test', auto: true }, async ({}, { onCleanup }) => {
+  .extend('api', { scope: 'test', auto: true }, async (_fixtures, { onCleanup }) => {
     // Create a new HttpInterceptor for each test to ensure clean state and isolation.
     const server = HttpInterceptor.create();
     onCleanup(() => server[Symbol.dispose]());

@@ -1,9 +1,4 @@
-import {
-  CreateTableCommand,
-  DeleteTableCommand,
-  DynamoDBClient,
-  waitUntilTableExists,
-} from '@aws-sdk/client-dynamodb';
+import { CreateTableCommand, DeleteTableCommand, DynamoDBClient, waitUntilTableExists } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient, PutCommand, ScanCommand } from '@aws-sdk/lib-dynamodb';
 
 import { assert } from '../../../third-party/common/ts/runtime/assert';
@@ -48,7 +43,7 @@ export class DynamoDbTableFixture {
     const scanCommand = new ScanCommand({ TableName: this.tableName });
     const result = await this.docClient.send(scanCommand);
     return (result.Items ?? []) as AnimeEntity[];
-  };
+  }
 
   async putRecords(...records: Record<string, unknown>[]): Promise<void> {
     for (const record of records) {
@@ -73,13 +68,10 @@ export class DynamoDbTableFixture {
     await this.docClient.send(command);
 
     const client = this.docClient;
-    await waitUntilTableExists(
-      { client, maxWaitTime: 60 },
-      { TableName: this.tableName },
-    );
+    await waitUntilTableExists({ client, maxWaitTime: 60 }, { TableName: this.tableName });
 
     logger.info('Table created', { tableName: this.tableName });
-  };
+  }
 
   async dropTable() {
     const table = this.tableName;
@@ -90,5 +82,5 @@ export class DynamoDbTableFixture {
 
     await this.docClient.send(new DeleteTableCommand({ TableName: table }));
     logger.info('Table deleted', { tableName: table });
-  };
+  }
 }

@@ -14,7 +14,7 @@ const tryGetAnimeById = async (myAnimeListId: number): Promise<ReturnType<typeof
     logger.error('Failed to get anime info', error, { myAnimeListId });
     return null;
   }
-}
+};
 
 // Assumption: episodes can be started from any number, but they are always in order.
 // Say, if episode 12 is released, then all existing previous episodes are released as well.
@@ -49,8 +49,7 @@ export const checkIfCompleted = async (
   const observedLastEpisode = Math.max(...allEpisodes);
   logger.info('Resolved observed last episode', { myAnimeListId, observedLastEpisode });
 
-  const result = expectedLastEpisode <= observedLastEpisode
-    || (expectedLastEpisode === 1 && observedLastEpisode === 0); // Movie or single episode anime.
+  const result = expectedLastEpisode <= observedLastEpisode || (expectedLastEpisode === 1 && observedLastEpisode === 0); // Movie or single episode anime.
   logger.info('Calculated anime completed check result', {
     myAnimeListId,
     expectedLastEpisode,
@@ -59,4 +58,4 @@ export const checkIfCompleted = async (
   });
 
   return result;
-}
+};

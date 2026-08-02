@@ -1,5 +1,5 @@
 import { getAnimeById } from '@lightweight-clients/jikan-api-lightweight-client';
-import { afterEach, describe, expect, test } from 'vitest'
+import { afterEach, describe, expect, test } from 'vitest';
 
 import { useRateLimit } from '../../app/src/shared/helpers/rate-limit';
 

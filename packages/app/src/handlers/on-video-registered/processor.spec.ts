@@ -41,10 +41,7 @@ describe('processor.process', () => {
     getEpisodesMock.mockResolvedValueOnce(undefined);
 
     const req: VideoRegisteredNotification = {
-      items: [
-        { videoKey: v1 },
-        { videoKey: v2 },
-      ],
+      items: [{ videoKey: v1 }, { videoKey: v2 }],
     };
 
     await process(req);
@@ -68,10 +65,7 @@ describe('processor.process', () => {
     });
 
     const req: VideoRegisteredNotification = {
-      items: [
-        { videoKey: v1 },
-        { videoKey: v2 },
-      ],
+      items: [{ videoKey: v1 }, { videoKey: v2 }],
     };
 
     await process(req);
@@ -92,11 +86,7 @@ describe('processor.process', () => {
     });
 
     const req: VideoRegisteredNotification = {
-      items: [
-        { videoKey: v1 },
-        { videoKey: v2 },
-        { videoKey: v3 },
-      ],
+      items: [{ videoKey: v1 }, { videoKey: v2 }, { videoKey: v3 }],
     };
 
     await process(req);
@@ -117,11 +107,7 @@ describe('processor.process', () => {
     getEpisodesMock.mockResolvedValueOnce({ episodes: new Set<number>([]) });
 
     const req: VideoRegisteredNotification = {
-      items: [
-        { videoKey: a1e1 },
-        { videoKey: a2e1 },
-        { videoKey: a1e2 },
-      ],
+      items: [{ videoKey: a1e1 }, { videoKey: a2e1 }, { videoKey: a1e2 }],
     };
 
     await process(req);
@@ -140,8 +126,6 @@ describe('processor.process', () => {
 
     getEpisodesMock.mockRejectedValueOnce(new Error('ddb down'));
 
-    await expect(
-      process({ items: [{ videoKey: v1 }] }),
-    ).rejects.toThrow('ddb down');
+    await expect(process({ items: [{ videoKey: v1 }] })).rejects.toThrow('ddb down');
   });
 });

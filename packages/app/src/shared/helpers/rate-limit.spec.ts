@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, test } from 'vitest'
+import { afterEach, describe, expect, test } from 'vitest';
 
 import { useRateLimit } from './rate-limit';
 
@@ -21,7 +21,7 @@ describe('useRateLimit', () => {
     args.push(i);
     timestamps.push(Date.now());
     return Promise.resolve(1);
-  }
+  };
 
   describe('unit tests', () => {
     test('should call the callback immediately if within rate limit', async () => {

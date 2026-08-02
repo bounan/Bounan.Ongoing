@@ -12,6 +12,16 @@ export interface Config {
 export const getConfig = (prefix: string): Config => ({
   alertEmail: getCfnValue('alertEmail', prefix, ExportNames.AlertEmail, configFile),
   loanApiFunctionArn: getCfnValue('loanApiFunctionArn', prefix, ExportNames.LoanApiFunctionArn, configFile),
-  registerVideosFunctionName: getCfnValue('registerVideosFunctionName', prefix, ExportNames.RegisterVideosFunctionName, configFile),
-  videoRegisteredTopicArn: getCfnValue('videoRegisteredTopicArn', prefix, ExportNames.VideoRegisteredSnsTopicArn, configFile),
+  registerVideosFunctionName: getCfnValue(
+    'registerVideosFunctionName',
+    prefix,
+    ExportNames.RegisterVideosFunctionName,
+    configFile,
+  ),
+  videoRegisteredTopicArn: getCfnValue(
+    'videoRegisteredTopicArn',
+    prefix,
+    ExportNames.VideoRegisteredSnsTopicArn,
+    configFile,
+  ),
 });

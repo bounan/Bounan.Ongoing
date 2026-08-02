@@ -25,7 +25,9 @@ vi.mock('@aws-sdk/lib-dynamodb', () => {
   }
 
   return {
-    PutCommand, UpdateCommand, GetCommand,
+    PutCommand,
+    UpdateCommand,
+    GetCommand,
     DynamoDBDocumentClient: {
       from: () => ({
         send: sendMock,

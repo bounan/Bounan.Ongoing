@@ -21,7 +21,11 @@ export const handler = async (event: SNSEvent): Promise<void> => {
   await initConfig();
   for (const record of event.Records) {
     logger.info('Processing record', { messageId: record?.Sns?.MessageId });
-    await retry(async () => await processMessage(record.Sns.Message), 3, () => true);
+    await retry(
+      async () => await processMessage(record.Sns.Message),
+      3,
+      () => true,
+    );
   }
 
   logger.info('Done');

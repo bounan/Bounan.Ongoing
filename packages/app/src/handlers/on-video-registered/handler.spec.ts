@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import type { SNSEvent, SNSEventRecord } from 'aws-lambda';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -8,15 +6,9 @@ import { handler } from './handler';
 const initConfigMock = vi.hoisted(() => vi.fn());
 const processMock = vi.hoisted(() => vi.fn());
 const retryMock = vi.hoisted(() =>
-  vi.fn(
-    async (
-      fn: () => Promise<void>,
-      _retries: number,
-      _shouldRetry: () => boolean,
-    ) => {
-      await fn();
-    },
-  ),
+  vi.fn(async (fn: () => Promise<void>, _retries: number, _shouldRetry: () => boolean) => {
+    await fn();
+  }),
 );
 
 vi.mock('../../config/config', () => ({ initConfig: initConfigMock }));
@@ -24,9 +16,12 @@ vi.mock('./processor', () => ({ process: processMock }));
 vi.mock('../../../../../third-party/common/ts/runtime/retry', () => ({ retry: retryMock }));
 
 const makeSnsEvent = (...records: unknown[]): SNSEvent => ({
-  Records: records.map(x => ({
-    Sns: { Message: JSON.stringify(x) },
-  } as SNSEventRecord)),
+  Records: records.map(
+    (x) =>
+      ({
+        Sns: { Message: JSON.stringify(x) },
+      }) as SNSEventRecord,
+  ),
 });
 
 describe('handler (SNS)', () => {
@@ -36,25 +31,16 @@ describe('handler (SNS)', () => {
     retryMock.mockReset();
 
     // Default: retry executes the function once
-    retryMock.mockImplementation(
-      async (
-        fn: () => Promise<void>,
-        _retries: number,
-        _shouldRetry: () => boolean,
-      ) => {
-        await fn();
-      },
-    );
+    retryMock.mockImplementation(async (fn: () => Promise<void>, _retries: number, _shouldRetry: () => boolean) => {
+      await fn();
+    });
 
     vi.spyOn(console, 'log').mockImplementation(() => undefined);
     vi.spyOn(console, 'info').mockImplementation(() => undefined);
   });
 
   it('initializes config and processes each SNS record via retry', async () => {
-    const event = makeSnsEvent(
-      { myAnimeListId: 1, dub: 'dub' },
-      { myAnimeListId: 2, dub: 'sub' },
-    );
+    const event = makeSnsEvent({ myAnimeListId: 1, dub: 'dub' }, { myAnimeListId: 2, dub: 'sub' });
 
     await handler(event);
 

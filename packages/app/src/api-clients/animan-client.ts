@@ -11,15 +11,17 @@ export const sendRegisterVideosRequest = async (videoKeys: VideoKey[]): Promise<
   logger.info('Sending register videos request', { videoKeys });
 
   const request: RegisterVideosRequest = {
-    items: videoKeys.map(videoKey => ({ videoKey })),
+    items: videoKeys.map((videoKey) => ({ videoKey })),
   };
 
   const message = JSON.stringify(request);
   logger.info('Sending request', { message });
 
-  const result = await lambdaClient.send(new InvokeCommand({
-    FunctionName: config.value.animan.registerVideosLambdaName,
-    Payload: message,
-  }));
+  const result = await lambdaClient.send(
+    new InvokeCommand({
+      FunctionName: config.value.animan.registerVideosLambdaName,
+      Payload: message,
+    }),
+  );
   logger.info('Request sent', { result });
-}
+};

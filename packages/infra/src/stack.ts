@@ -24,21 +24,32 @@ export class OngoingCdkStack extends cfn.Stack {
 
     const config = getConfig('bounan:');
 
-    const loanApiFunction = lambda.Function.fromFunctionAttributes(
-      this, 'LoanApiFunction', {
-        functionArn: config.loanApiFunctionArn,
-        skipPermissions: true,
-      });
+    const loanApiFunction = lambda.Function.fromFunctionAttributes(this, 'LoanApiFunction', {
+      functionArn: config.loanApiFunctionArn,
+      skipPermissions: true,
+    });
     const videoRegisteredTopic = sns.Topic.fromTopicArn(
-      this, 'VideoRegisteredSnsTopic', config.videoRegisteredTopicArn);
+      this,
+      'VideoRegisteredSnsTopic',
+      config.videoRegisteredTopicArn,
+    );
     const registerVideosLambda = lambda.Function.fromFunctionName(
-      this, 'RegisterVideosLambda', config.registerVideosFunctionName);
+      this,
+      'RegisterVideosLambda',
+      config.registerVideosFunctionName,
+    );
 
     const table = this.createTable();
     const logGroup = this.createLogGroup();
     const parameter = this.saveParameters(table, config);
     const functions = this.createLambdas(
-      table, logGroup, registerVideosLambda, videoRegisteredTopic, loanApiFunction, parameter);
+      table,
+      logGroup,
+      registerVideosLambda,
+      videoRegisteredTopic,
+      loanApiFunction,
+      parameter,
+    );
     this.setSchedule(functions[LambdaHandler.OnSchedule]);
     this.setErrorAlarm(logGroup, config);
 
@@ -126,10 +137,7 @@ export class OngoingCdkStack extends cfn.Stack {
     });
   }
 
-  private saveParameters(
-    filesTable: dynamodb.Table,
-    config: Config,
-  ): ssm.StringParameter {
+  private saveParameters(filesTable: dynamodb.Table, config: Config): ssm.StringParameter {
     const value = {
       animan: {
         registerVideosLambdaName: config.registerVideosFunctionName,

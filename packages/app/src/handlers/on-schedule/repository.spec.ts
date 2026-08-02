@@ -90,9 +90,7 @@ describe('repository', () => {
       getAnimeKeyMock.mockReturnValueOnce('1#false');
       docClientMock.on(DeleteCommand).rejects(new Error('ddb down'));
 
-      await expect(
-        deleteAnime({ myAnimeListId: 1, dub: 'false' }),
-      ).rejects.toThrow('ddb down');
+      await expect(deleteAnime({ myAnimeListId: 1, dub: 'false' })).rejects.toThrow('ddb down');
     });
   });
 });

@@ -16,5 +16,5 @@ export function useRateLimit<TArgs, TResult>(
     lastResultTime = Date.now();
 
     return result;
-  }
+  };
 }

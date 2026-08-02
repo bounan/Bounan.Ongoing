@@ -11,4 +11,4 @@ export const makeSnsEvent = (message: unknown): SNSEvent => {
       } as unknown as SNSEventRecord,
     ],
   };
-}
+};

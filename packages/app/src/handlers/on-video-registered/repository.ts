@@ -23,7 +23,7 @@ export const addAnime = async (animeKey: AnimeKey, episodes: Set<number>): Promi
 
   const result = await docClient.send(command);
   logger.info('Added anime', { animeKey, episodes: [...episodes], result });
-}
+};
 
 export const addEpisodes = async (animeKey: AnimeKey, episodes: Set<number>): Promise<void> => {
   const command = new UpdateCommand({
@@ -40,4 +40,4 @@ export const addEpisodes = async (animeKey: AnimeKey, episodes: Set<number>): Pr
 
   const result = await docClient.send(command);
   logger.info('Added episodes', { animeKey, episodes: [...episodes], result });
-}
+};

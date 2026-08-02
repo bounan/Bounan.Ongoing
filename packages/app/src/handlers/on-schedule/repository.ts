@@ -14,7 +14,7 @@ export const getAll = async (): Promise<AnimeEntity[]> => {
 
   const response = await docClient.send(command);
   return response.Items as AnimeEntity[];
-}
+};
 
 export const deleteAnime = async (animeKey: AnimeKey): Promise<void> => {
   const command = new DeleteCommand({
@@ -25,4 +25,4 @@ export const deleteAnime = async (animeKey: AnimeKey): Promise<void> => {
 
   const result = await docClient.send(command);
   logger.info('Deleted anime', { animeKey, result });
-}
+};

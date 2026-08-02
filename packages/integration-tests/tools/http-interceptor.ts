@@ -1,9 +1,9 @@
-import { bypass, http, HttpResponse } from 'msw';
+import { bypass, HttpResponse, http } from 'msw';
 import { setupServer } from 'msw/node';
 
 type RequestsRegistry<Request> = {
   requests: Request[];
-}
+};
 
 export class HttpInterceptor implements Disposable {
   private static readonly DEFAULT_HANDLERS = [
@@ -39,7 +39,7 @@ export class HttpInterceptor implements Disposable {
         async ({ request }) => {
           const body = await request.clone().json();
           registry.requests.push(body as Request);
-          return new Response(JSON.stringify(response), { status: 200 })
+          return new Response(JSON.stringify(response), { status: 200 });
         },
       ),
     );
@@ -51,8 +51,7 @@ export class HttpInterceptor implements Disposable {
     this._server.use(
       http.post('https://ssm.us-east-1.amazonaws.com/', async ({ request }) => {
         const body = await request.clone().text();
-        if (body !== `{"Name":"${parameterName}"}`)
-          throw new Error(`Unexpected request body: ${request.body}`);
+        if (body !== `{"Name":"${parameterName}"}`) throw new Error(`Unexpected request body: ${request.body}`);
 
         return HttpResponse.json({
           Parameter: {
@@ -65,9 +64,7 @@ export class HttpInterceptor implements Disposable {
 
   public mockJikan(myAnimeListId: number, episodes: number) {
     this._server.use(
-      http.get(`https://api.jikan.moe/v4/anime/${myAnimeListId}`, () =>
-        HttpResponse.json({ data: { episodes } }),
-      ),
+      http.get(`https://api.jikan.moe/v4/anime/${myAnimeListId}`, () => HttpResponse.json({ data: { episodes } })),
     );
   }
 
@@ -75,8 +72,7 @@ export class HttpInterceptor implements Disposable {
     this._server.use(
       http.post(
         'https://dynamodb.us-east-1.amazonaws.com/',
-        async () =>
-          HttpResponse.json({ __type: 'ProvisionedThroughputExceededException' }, { status: 400 }),
+        async () => HttpResponse.json({ __type: 'ProvisionedThroughputExceededException' }, { status: 400 }),
         { once: true },
       ),
     );
