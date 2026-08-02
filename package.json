@@ -13,8 +13,6 @@
     "test:integration": "vitest run --coverage packages/integration-tests/tests",
     "dependencies:check": "pnpm outdated --recursive --use-stderr",
     "dependencies:update": "pnpm update --recursive --latest",
-    "licenses:scan": "pnpm licenses list --prod --json > thirdparty.json",
-    "licenses:generate": "pnpm run -w licenses:scan && node scripts/format-thirdparty.mjs",
     "cdk:synth": "pnpm -r --filter infra cdk:synth",
     "cdk:diff": "pnpm -r --filter infra cdk:diff",
     "cdk:deploy": "pnpm -r --filter infra cdk:deploy",

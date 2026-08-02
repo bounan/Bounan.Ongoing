@@ -67,4 +67,3 @@ lies solely with the user of the software.
 This project is licensed under the BSD 3-Clause License.
 
 See the LICENSE file for details.
-Third-party software licenses are listed in THIRD_PARTY_NOTICES.md.
