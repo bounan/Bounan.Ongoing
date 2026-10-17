@@ -27,7 +27,7 @@ catalog:
   cross-env: 10.1.0
   jiti: 2.7.0
   knip: 6.41.0
-  msw: 2.15.0
+  msw: 3.0.3
   npm-run-all2: 9.0.3
   typescript: 7.0.2
   vitest: 4.1.11
