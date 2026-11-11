@@ -1,5 +1,8 @@
 lockfileVersion: '9.0'
 
+overrides:
+  '@smithy/types': 4.20.0
+
 settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
@@ -1733,7 +1736,7 @@ snapshots:
       '@smithy/core': 3.38.1
       '@smithy/fetch-http-handler': 5.8.0
       '@smithy/node-http-handler': 4.14.1
-      '@smithy/types': 4.19.0
+      '@smithy/types': 4.20.0
       tslib: 2.9.1
 
   '@aws-sdk/client-lambda@3.1164.0':
@@ -1744,7 +1747,7 @@ snapshots:
       '@smithy/core': 3.38.1
       '@smithy/fetch-http-handler': 5.8.0
       '@smithy/node-http-handler': 4.14.1
-      '@smithy/types': 4.19.0
+      '@smithy/types': 4.20.0
       tslib: 2.9.1
 
   '@aws-sdk/client-ssm@3.1164.0':
@@ -1755,7 +1758,7 @@ snapshots:
       '@smithy/core': 3.38.1
       '@smithy/fetch-http-handler': 5.8.0
       '@smithy/node-http-handler': 4.14.1
-      '@smithy/types': 4.19.0
+      '@smithy/types': 4.20.0
       tslib: 2.9.1
 
   '@aws-sdk/core@3.980.2':
@@ -1871,7 +1874,7 @@ snapshots:
       '@aws-sdk/core': 3.980.2
       '@aws-sdk/util-dynamodb': 3.996.9(@aws-sdk/client-dynamodb@3.1164.0)
       '@smithy/core': 3.38.1
-      '@smithy/types': 4.19.0
+      '@smithy/types': 4.20.0
       tslib: 2.9.1
 
   '@aws-sdk/middleware-endpoint-discovery@3.972.37':
@@ -1879,7 +1882,7 @@ snapshots:
       '@aws-sdk/endpoint-cache': 3.972.11
       '@aws-sdk/types': 3.975.0
       '@smithy/core': 3.38.1
-      '@smithy/types': 4.19.0
+      '@smithy/types': 4.20.0
       tslib: 2.9.1
 
   '@aws-sdk/nested-clients@3.998.2':
@@ -1911,7 +1914,7 @@ snapshots:
 
   '@aws-sdk/types@3.975.0':
     dependencies:
-      '@smithy/types': 4.19.0
+      '@smithy/types': 4.20.0
       tslib: 2.9.1
 
   '@aws-sdk/types@3.975.1':
@@ -2260,7 +2263,7 @@ snapshots:
 
   '@smithy/core@3.38.1':
     dependencies:
-      '@smithy/types': 4.19.0
+      '@smithy/types': 4.20.0
       tslib: 2.9.1
 
   '@smithy/core@3.39.0':
@@ -2271,13 +2274,13 @@ snapshots:
   '@smithy/credential-provider-imds@4.5.2':
     dependencies:
       '@smithy/core': 3.38.1
-      '@smithy/types': 4.19.0
+      '@smithy/types': 4.20.0
       tslib: 2.9.1
 
   '@smithy/fetch-http-handler@5.8.0':
     dependencies:
       '@smithy/core': 3.38.1
-      '@smithy/types': 4.19.0
+      '@smithy/types': 4.20.0
       tslib: 2.9.1
 
   '@smithy/fetch-http-handler@5.8.1':
@@ -2289,7 +2292,7 @@ snapshots:
   '@smithy/node-http-handler@4.14.1':
     dependencies:
       '@smithy/core': 3.38.1
-      '@smithy/types': 4.19.0
+      '@smithy/types': 4.20.0
       tslib: 2.9.1
 
   '@smithy/node-http-handler@4.14.2':
@@ -2301,7 +2304,7 @@ snapshots:
   '@smithy/signature-v4@5.7.5':
     dependencies:
       '@smithy/core': 3.38.1
-      '@smithy/types': 4.19.0
+      '@smithy/types': 4.20.0
       tslib: 2.9.1
 
   '@smithy/types@4.19.0':
