@@ -34,7 +34,7 @@ and if it should be added to the database.
 ### Test Cases
 
 | Test Case ID | IsComplete | Registration Status | Ongoing status | Expected Outcome                  |
-|--------------|------------|---------------------|----------------|-----------------------------------|
+| ------------ | ---------- | ------------------- | -------------- | --------------------------------- |
 | REQ-OVR-01   | Yes        | *                   | *              | No action taken                   |
 | REQ-OVR-02   | No         | Not Registered      | Not Ongoing    | No action taken                   |
 | REQ-OVR-02   | No         | Not Registered      | Ongoing        | Anime and Episode are added to DB |
@@ -59,7 +59,7 @@ The endpoint is triggered on a schedule (every 3 hours) to check for new episode
 ### Test Cases
 
 | Test Case ID | Activity | IsComplete | New Episodes | Expected Outcome                    |
-|--------------|----------|------------|--------------|-------------------------------------|
+| ------------ | -------- | ---------- | ------------ | ----------------------------------- |
 | REQ-OS-01    | Inactive | *          | *            | Anime is removed from DB            |
 | REQ-OS-02    | Active   | Yes        | *            | Anime is removed from DB            |
 | REQ-OS-03    | Active   | No         | 0            | No action taken                     |
