@@ -79,6 +79,6 @@ export class HttpInterceptor implements Disposable {
   }
 
   private init() {
-    this._server.listen({ onUnhandledRequest: 'error' });
+    this._server.listen({ onUnhandledFrame: 'error' });
   }
 }
